@@ -1,0 +1,31 @@
+Player,Position,Team,Pass_Yds,Pass_TD,Int,Rush_Yds,Rush_TD,Rec,Rec_Yds,Rec_TD
+Christian McCaffrey,RB,SF,0,0,0,1100,10,70,600,5
+CeeDee Lamb,WR,DAL,0,0,0,100,1,115,1450,10
+Tyreek Hill,WR,MIA,0,0,0,20,0,110,1600,11
+Justin Jefferson,WR,MIN,0,0,0,0,0,105,1500,9
+Ja'Marr Chase,WR,CIN,0,0,0,0,0,100,1350,10
+Amon-Ra St. Brown,WR,DET,0,0,0,15,0,110,1300,8
+Breece Hall,RB,NYJ,0,0,0,1050,8,60,500,3
+Bijan Robinson,RB,ATL,0,0,0,1000,7,65,550,4
+A.J. Brown,WR,PHI,0,0,0,0,0,95,1350,8
+Puka Nacua,WR,LAR,0,0,0,50,0,90,1200,6
+Jahmyr Gibbs,RB,DET,0,0,0,850,7,60,450,3
+Jonathan Taylor,RB,IND,0,0,0,1150,11,35,250,1
+Garrett Wilson,WR,NYJ,0,0,0,0,0,90,1150,7
+Saquon Barkley,RB,PHI,0,0,0,1050,9,45,350,2
+Marvin Harrison Jr.,WR,ARI,0,0,0,0,0,85,1100,6
+Kyren Williams,RB,LAR,0,0,0,1000,10,40,300,2
+Chris Olave,WR,NO,0,0,0,0,0,85,1150,6
+Drake London,WR,ATL,0,0,0,0,0,80,1050,6
+Deebo Samuel,WR,SF,0,0,0,200,3,65,900,6
+Nico Collins,WR,HOU,0,0,0,0,0,80,1100,7
+Mike Evans,WR,TB,0,0,0,0,0,75,1050,9
+Travis Etienne Jr.,RB,JAX,0,0,0,950,8,45,350,1
+Derrick Henry,RB,BAL,0,0,0,1200,12,20,150,0
+De'Von Achane,RB,MIA,0,0,0,850,7,35,300,2
+Josh Allen,QB,BUF,4000,30,12,500,8,0,0,0
+Patrick Mahomes,QB,KC,4500,35,10,350,3,0,0,0
+Sam LaPorta,TE,DET,0,0,0,0,0,80,850,7
+Jalen Hurts,QB,PHI,3600,22,11,600,12,0,0,0
+Travis Kelce,TE,KC,0,0,0,0,0,90,950,7
+Lamar Jackson,QB,BAL,3500,24,9,750,5,0,0,0

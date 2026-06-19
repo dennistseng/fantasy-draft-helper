@@ -1,0 +1,31 @@
+Player,Position,Team,ADP,ADP_StdDev
+Christian McCaffrey,RB,SF,1.1,0.2
+CeeDee Lamb,WR,DAL,2.3,0.5
+Tyreek Hill,WR,MIA,3.5,0.7
+Justin Jefferson,WR,MIN,4.2,0.8
+Ja'Marr Chase,WR,CIN,5.1,1.0
+Amon-Ra St. Brown,WR,DET,6.4,1.2
+Breece Hall,RB,NYJ,7.8,1.5
+Bijan Robinson,RB,ATL,8.5,1.6
+A.J. Brown,WR,PHI,9.2,1.8
+Puka Nacua,WR,LAR,10.5,2.0
+Jahmyr Gibbs,RB,DET,11.3,2.1
+Jonathan Taylor,RB,IND,12.6,2.5
+Garrett Wilson,WR,NYJ,13.4,2.6
+Saquon Barkley,RB,PHI,14.8,2.8
+Marvin Harrison Jr.,WR,ARI,15.9,3.0
+Kyren Williams,RB,LAR,16.5,3.2
+Chris Olave,WR,NO,17.2,3.5
+Drake London,WR,ATL,18.7,3.8
+Deebo Samuel,WR,SF,19.3,4.0
+Nico Collins,WR,HOU,20.5,4.2
+Mike Evans,WR,TB,21.8,4.5
+Travis Etienne Jr.,RB,JAX,22.4,4.6
+Derrick Henry,RB,BAL,23.1,4.8
+De'Von Achane,RB,MIA,24.6,5.1
+Josh Allen,QB,BUF,25.3,5.5
+Patrick Mahomes,QB,KC,26.8,6.0
+Sam LaPorta,TE,DET,27.5,6.2
+Jalen Hurts,QB,PHI,28.2,6.5
+Travis Kelce,TE,KC,29.4,6.8
+Lamar Jackson,QB,BAL,30.5,7.0
