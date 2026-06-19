@@ -50,3 +50,8 @@ streamlit run src/app.py
 ### Phase 4: Refinement (The "Deep End")
 * Integrate simulation probabilities back into the UI table (`% Avail Next Pick`).
 * Implement complex Positional Need multipliers to handle flexible starting spots (e.g., Scott Fish Bowl's 0-2 QBs rules).
+
+### Phase 5: Universal Flex Support (The SFB Overhaul)
+* Update Streamlit UI sidebar to accept discrete starting slot inputs, including Flex and Superflex.
+* Rewrite `calculate_vorp` to use a "Tiered Allocation Algorithm" that accurately calculates replacement baselines regardless of whether the league uses strict positional slots or pure flex slots.
+* Update the simulation's `get_positional_penalty` logic to evaluate "Available Starting Slots" rather than strict expected positional limits.

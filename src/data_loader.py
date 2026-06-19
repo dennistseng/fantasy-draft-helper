@@ -79,41 +79,59 @@ def calculate_projected_points(df: pd.DataFrame, scoring_rules: dict) -> pd.Data
 
 def calculate_vorp(df: pd.DataFrame, roster_settings: dict, league_size: int = 12) -> pd.DataFrame:
     """
-    Calculates Value Over Replacement Player (VORP).
+    Calculates Value Over Replacement Player (VORP) using the Tiered Allocation Algorithm.
+    Supports specific slots, FLEX, and SUPERFLEX.
     """
     df = df.copy()
     df['VORP'] = 0.0
     
-    # Calculate how many of each position are expected to be drafted as "starters"
-    # Note: SFB has flexible starting spots (0-2 QB, etc.). For VORP baselining, 
-    # we need to make an assumption about the "meta" or average drafted starters.
+    # Sort entire dataframe by projected points to make greedy allocation easy
+    df_sorted = df.sort_values(by='Projected_Points', ascending=False)
     
-    # Using typical SFB "expected" starters as baselines for calculation
-    # If the rule is 0-2 QB, typically ~20 QBs will start across 12 teams.
-    # If 10 starters total, maybe 20 QB, 30 RB, 40 WR, 15 TE.
-    # We will use the provided roster_settings dictionary to define these baselines.
+    locked_indices = set()
     
-    for pos, expected_starters_per_team in roster_settings.items():
-        if pos == 'FLEX' or pos == 'SUPERFLEX':
-            continue # Flex complicates VORP, we'll establish positional baselines first
+    # Step 1: Fill Mandatory Specific Positions
+    for pos in ['QB', 'RB', 'WR', 'TE']:
+        needed = roster_settings.get(pos, 0) * league_size
+        if needed > 0:
+            # Find the top 'needed' players at this position not already locked
+            available = df_sorted[(df_sorted['Position'] == pos) & (~df_sorted.index.isin(locked_indices))]
+            locked_indices.update(available.head(needed).index.tolist())
             
-        total_starters = expected_starters_per_team * league_size
+    # Step 2: Fill FLEX Slots (RB, WR, TE)
+    flex_needed = roster_settings.get('FLEX', 0) * league_size
+    if flex_needed > 0:
+        available = df_sorted[
+            (df_sorted['Position'].isin(['RB', 'WR', 'TE'])) & 
+            (~df_sorted.index.isin(locked_indices))
+        ]
+        locked_indices.update(available.head(flex_needed).index.tolist())
         
-        # Filter for the specific position and sort by projected points
-        pos_df = df[df['Position'] == pos].sort_values(by='Projected_Points', ascending=False)
+    # Step 3: Fill SUPERFLEX Slots (QB, RB, WR, TE)
+    sflex_needed = roster_settings.get('SUPERFLEX', 0) * league_size
+    if sflex_needed > 0:
+        available = df_sorted[~df_sorted.index.isin(locked_indices)]
+        locked_indices.update(available.head(sflex_needed).index.tolist())
         
-        # If we have fewer players in the DB than expected starters, replacement is 0
-        if len(pos_df) <= total_starters:
-             replacement_value = 0
+    # Step 4: Establish Positional Baselines
+    # The baseline for a position is the projected points of the BEST remaining player
+    # at that position who was NOT drafted as a starter in the steps above.
+    pos_baselines = {}
+    remaining_players = df_sorted[~df_sorted.index.isin(locked_indices)]
+    
+    for pos in ['QB', 'RB', 'WR', 'TE']:
+        pos_remaining = remaining_players[remaining_players['Position'] == pos]
+        if not pos_remaining.empty:
+            pos_baselines[pos] = pos_remaining.iloc[0]['Projected_Points']
         else:
-             # The replacement player is the one drafted right after the last starter
-             # e.g., if 24 QBs start, the 25th QB is replacement level
-             replacement_index = int(total_starters)
-             replacement_value = pos_df.iloc[replacement_index]['Projected_Points']
-             
-        # Calculate VORP for this position
-        mask = df['Position'] == pos
-        df.loc[mask, 'VORP'] = df.loc[mask, 'Projected_Points'] - replacement_value
+            pos_baselines[pos] = 0.0
+            
+    # Step 5: Calculate VORP
+    # VORP = Projected Points - Positional Baseline
+    df['VORP'] = df.apply(
+        lambda row: row['Projected_Points'] - pos_baselines.get(row['Position'], 0.0), 
+        axis=1
+    )
 
     return df
 
@@ -136,9 +154,9 @@ if __name__ == "__main__":
         print(scored_data[['Player', 'Position', 'Projected_Points']].head())
         
         print("\nCalculating VORP...")
-        # Assuming a baseline of 1.5 QBs, 2.5 RBs, 3.5 WRs, 1.25 TEs per team for SFB baseline
-        sfb_baselines = {'QB': 1.5, 'RB': 2.5, 'WR': 3.5, 'TE': 1.25}
-        vorp_data = calculate_vorp(scored_data, sfb_baselines, league_size=12)
+        # Testing with SFB Pure Flex Layout, but small enough to leave players in the pool
+        sfb_baselines = {'QB': 0, 'RB': 0, 'WR': 0, 'TE': 0, 'FLEX': 1, 'SUPERFLEX': 1}
+        vorp_data = calculate_vorp(scored_data, sfb_baselines, league_size=4)
         
         # Sort by VORP to see top overall value
         top_vorp = vorp_data.sort_values(by='VORP', ascending=False)
