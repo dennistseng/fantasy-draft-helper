@@ -145,22 +145,24 @@ def run_monte_carlo_simulations(current_state: DraftState, my_team_id: int, rost
     total_picks_in_draft = current_state.num_teams * current_state.total_rounds
     my_next_pick = None
     
-    # Find my next pick
-    for p in range(current_state.current_pick, total_picks_in_draft + 1):
-        if current_state.get_team_for_pick(p) == my_team_id:
-            my_next_pick = p
+    scan_pick = current_state.current_pick
+    
+    # 1. Skip my current turn block
+    while scan_pick <= total_picks_in_draft and current_state.get_team_for_pick(scan_pick) == my_team_id:
+        scan_pick += 1
+        
+    # 2. Find my true next turn
+    while scan_pick <= total_picks_in_draft:
+        if current_state.get_team_for_pick(scan_pick) == my_team_id:
+            my_next_pick = scan_pick
             break
+        scan_pick += 1
             
     if not my_next_pick:
         return pd.DataFrame()
         
     picks_until_me = my_next_pick - current_state.current_pick
     
-    if picks_until_me == 0:
-        results = current_state.available_players.copy()
-        results['Sim_Avail_Next_Pick'] = 1.0
-        return results
-        
     survival_counts = {player: 0 for player in current_state.available_players['Player']}
     base_pool = current_state.available_players.copy()
     

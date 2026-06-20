@@ -64,3 +64,8 @@ streamlit run src/app.py
 * Add UI controls to define the exact number of simulation runs.
 * Implement a manual trigger button to execute simulations on-demand rather than on every page load.
 * Manage session state to cache simulation results and instantly invalidate them when the draft state or scoring rules change.
+
+### Phase 8: True Next Pick Probability Logic
+* Redefine the "Next Pick" logic in the simulation engine to accurately target the subsequent turn.
+* When the user is actively on the clock, bypass their current pick(s) to simulate availability for their next future pick.
+* Allow the Monte Carlo engine to organically simulate the user's current pending picks based on ADP and team needs during the "gap" simulation.
