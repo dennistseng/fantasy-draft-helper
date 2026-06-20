@@ -6,8 +6,8 @@ def load_and_merge_data(adp_path: str, proj_path: str) -> pd.DataFrame:
     Loads ADP and Projection CSVs and merges them on Player, Position, and Team.
     """
     try:
-        adp_df = pd.read_csv(adp_path)
-        proj_df = pd.read_csv(proj_path)
+        adp_df = pd.read_csv(adp_path, thousands=',')
+        proj_df = pd.read_csv(proj_path, thousands=',')
         
         # Strip whitespace from string columns to prevent merge issues
         for df in [adp_df, proj_df]:
