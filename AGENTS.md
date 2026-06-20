@@ -55,3 +55,12 @@ streamlit run src/app.py
 * Update Streamlit UI sidebar to accept discrete starting slot inputs, including Flex and Superflex.
 * Rewrite `calculate_vorp` to use a "Tiered Allocation Algorithm" that accurately calculates replacement baselines regardless of whether the league uses strict positional slots or pure flex slots.
 * Update the simulation's `get_positional_penalty` logic to evaluate "Available Starting Slots" rather than strict expected positional limits.
+
+### Phase 6: Custom Draft Order (Round Reversal)
+* Add UI toggles to enable Round Reversal logic (e.g., 3rd Round Reversal).
+* Update `DraftState` snake math to invert round parity at the specified round, automatically cascading the new order through the remainder of the draft.
+
+### Phase 7: Performance & On-Demand Simulation
+* Add UI controls to define the exact number of simulation runs.
+* Implement a manual trigger button to execute simulations on-demand rather than on every page load.
+* Manage session state to cache simulation results and instantly invalidate them when the draft state or scoring rules change.

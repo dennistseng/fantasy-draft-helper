@@ -27,9 +27,10 @@ If the simulation only assumed that opponents drafted the highest-ranked player 
 
 ## The User Experience
 All of this complex math is wrapped in a clean, user-friendly interface:
-* **The Control Panel:** Users can adjust sliders and inputs for league size, draft position, starting lineup slots (including Flex/Superflex), and scoring rules on the fly.
+* **The Control Panel:** Users can adjust sliders and inputs for league size, draft position, starting lineup slots (including Flex/Superflex), scoring rules, and advanced draft formats (like 3rd Round Reversal) on the fly.
 * **The Draft Board:** A visual grid tracks the draft round-by-round, updating instantly as players are selected.
-* **The Player Pool:** An interactive table displaying all remaining players, sorted by true value (VORP). Crucially, this table features a color-coded **"Probability Available at Next Pick"** column, turning dark green for safe bets and deep red for players likely to be drafted before your next turn.
+* **On-Demand Probabilities:** Because simulating thousands of drafts requires immense computational power, the tool is designed for speed. Users can rapidly log picks on the Draft Board, and then manually trigger the "Run Probability Simulation" engine (choosing their desired number of simulation loops) only when they face a difficult decision.
+* **The Player Pool:** An interactive table displaying all remaining players, sorted by true value (VORP). When a simulation is triggered, this table seamlessly updates to include a color-coded **"Probability Available at Next Pick"** column, turning dark green for safe bets and deep red for players likely to be drafted before your next turn.
 
 ## Current Status
-The project has successfully bridged data ingestion, dynamic scoring, the Monte Carlo simulation engine, and the interactive user interface. It is a fully functional prototype capable of generating real-time predictive insights during a live fantasy football draft, with robust support for complex Universal Flex formats.
+The project has successfully bridged data ingestion, dynamic scoring, the Monte Carlo simulation engine, and the interactive user interface. It is a fully functional prototype capable of generating real-time predictive insights during a live fantasy football draft, with robust support for complex Universal Flex formats and custom draft orders like 3rd Round Reversal.

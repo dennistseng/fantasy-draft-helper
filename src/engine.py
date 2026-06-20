@@ -4,10 +4,11 @@ import scipy.stats as stats
 import copy
 
 class DraftState:
-    def __init__(self, num_teams, total_rounds, initial_player_pool: pd.DataFrame):
+    def __init__(self, num_teams, total_rounds, initial_player_pool: pd.DataFrame, reversal_round=None):
         self.num_teams = num_teams
         self.total_rounds = total_rounds
         self.current_pick = 1
+        self.reversal_round = reversal_round
         
         # Keep track of available players
         self.available_players = initial_player_pool.copy()
@@ -19,14 +20,24 @@ class DraftState:
         self.draft_log = []
 
     def get_team_for_pick(self, pick_num):
-        """Calculates which team is picking based on snake draft logic."""
+        """Calculates which team is picking based on snake draft logic with optional round reversal."""
         round_num = ((pick_num - 1) // self.num_teams) + 1
         pick_in_round = ((pick_num - 1) % self.num_teams) + 1
         
-        if round_num % 2 == 0:
-            # Even rounds snake backward
+        is_even_round = (round_num % 2 == 0)
+        
+        # Determine if we should reverse the natural snake parity
+        should_reverse = is_even_round
+        
+        if self.reversal_round and round_num >= self.reversal_round:
+            # Flip parity starting at the reversal round
+            should_reverse = not is_even_round
+            
+        if should_reverse:
+            # Snake backward (e.g., 12 down to 1)
             return self.num_teams - pick_in_round + 1
         else:
+            # Snake forward (e.g., 1 up to 12)
             return pick_in_round
 
     def make_pick(self, player_name: str, force_pick_num=None):
