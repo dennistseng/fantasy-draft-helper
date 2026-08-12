@@ -55,6 +55,16 @@ rec_yd = st.sidebar.number_input("Rec Yards (pts per yard)", value=0.1, step=0.0
 rec_td = st.sidebar.number_input("Rec TD", value=6.0, step=1.0)
 
 st.sidebar.markdown("---")
+st.sidebar.header("Bonus Scoring (SFB)")
+bonus_pass_300 = st.sidebar.number_input("300+ Yds Passing (per game)", value=10.0, step=1.0)
+bonus_pass_400 = st.sidebar.number_input("400+ Yds Passing (per game)", value=10.0, step=1.0)
+bonus_comb_100 = st.sidebar.number_input("100+ Yds Rush/Rec (per game)", value=10.0, step=1.0)
+bonus_comb_200 = st.sidebar.number_input("200+ Yds Rush/Rec (per game)", value=10.0, step=1.0)
+bonus_pass_40p = st.sidebar.number_input("40+ Yd Pass Play", value=10.0, step=1.0)
+bonus_rush_40p = st.sidebar.number_input("40+ Yd Rush Play", value=10.0, step=1.0)
+bonus_rec_20p = st.sidebar.number_input("20+ Yd Rec Play", value=10.0, step=1.0)
+
+st.sidebar.markdown("---")
 st.sidebar.header("Simulation Engine")
 num_simulations = st.sidebar.number_input("Number of Simulations", min_value=100, max_value=5000, value=1000, step=100)
 
@@ -68,6 +78,13 @@ scoring_rules = {
     'te_rec_bonus': te_rec_bonus,
     'rec_yd': rec_yd,
     'rec_td': rec_td,
+    'bonus_pass_300': bonus_pass_300,
+    'bonus_pass_400': bonus_pass_400,
+    'bonus_comb_100': bonus_comb_100,
+    'bonus_comb_200': bonus_comb_200,
+    'bonus_pass_40p': bonus_pass_40p,
+    'bonus_rush_40p': bonus_rush_40p,
+    'bonus_rec_20p': bonus_rec_20p,
 }
 
 # --- DATA PROCESSING ---

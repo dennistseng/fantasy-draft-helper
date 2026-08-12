@@ -69,3 +69,8 @@ streamlit run src/app.py
 * Redefine the "Next Pick" logic in the simulation engine to accurately target the subsequent turn.
 * When the user is actively on the clock, bypass their current pick(s) to simulate availability for their next future pick.
 * Allow the Monte Carlo engine to organically simulate the user's current pending picks based on ADP and team needs during the "gap" simulation.
+
+### Phase 9: SFB Explosive Play & Milestone Bonuses
+* Add UI controls in the sidebar to configure point values for explosive plays (e.g., 40+ yard pass/rush, 20+ yard rec) and game-based milestones (e.g., 300+ pass yards, 100+ combined yards).
+* Update `data_loader.py` to conditionally parse new projection columns (`Games_Pass_300`, `Pass_40p`, etc.) if they exist in the uploaded CSV.
+* Apply the bonus multipliers dynamically without breaking compatibility for datasets that lack these specific SFB columns.

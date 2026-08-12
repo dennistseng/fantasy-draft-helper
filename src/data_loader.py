@@ -46,7 +46,14 @@ def calculate_projected_points(df: pd.DataFrame, scoring_rules: dict) -> pd.Data
         'rec_yd': 0.1,
         'rec_td': 6,
         'pass_2pt': 2,
-        'rush_rec_2pt': 2
+        'rush_rec_2pt': 2,
+        'bonus_pass_300': 10.0,
+        'bonus_pass_400': 10.0,
+        'bonus_comb_100': 10.0,
+        'bonus_comb_200': 10.0,
+        'bonus_pass_40p': 10.0,
+        'bonus_rush_40p': 10.0,
+        'bonus_rec_20p': 10.0
     }
     
     # Update defaults with any provided rules
@@ -73,6 +80,15 @@ def calculate_projected_points(df: pd.DataFrame, scoring_rules: dict) -> pd.Data
     if 'Rec' in df.columns and 'te_rec_bonus' in rules:
         te_mask = df['Position'] == 'TE'
         df.loc[te_mask, 'Projected_Points'] += df.loc[te_mask, 'Rec'] * rules['te_rec_bonus']
+
+    # SFB Bonuses (Milestones & Explosive Plays)
+    if 'Games_Pass_300' in df.columns: df['Projected_Points'] += df['Games_Pass_300'] * rules['bonus_pass_300']
+    if 'Games_Pass_400' in df.columns: df['Projected_Points'] += df['Games_Pass_400'] * rules['bonus_pass_400']
+    if 'Games_Comb_100' in df.columns: df['Projected_Points'] += df['Games_Comb_100'] * rules['bonus_comb_100']
+    if 'Games_Comb_200' in df.columns: df['Projected_Points'] += df['Games_Comb_200'] * rules['bonus_comb_200']
+    if 'Pass_40p' in df.columns: df['Projected_Points'] += df['Pass_40p'] * rules['bonus_pass_40p']
+    if 'Rush_40p' in df.columns: df['Projected_Points'] += df['Rush_40p'] * rules['bonus_rush_40p']
+    if 'Rec_20p' in df.columns: df['Projected_Points'] += df['Rec_20p'] * rules['bonus_rec_20p']
 
     return df
 
